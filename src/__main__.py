@@ -1,3 +1,4 @@
+import os
 import json
 
 # SMS imports
@@ -21,9 +22,12 @@ if __name__ == "__main__":
     config = get_config()
 
     # Google Sheets Initialization
-    google_client = get_gspread_client_with_auth(config['google_credentials_path'], GOOGLE_SHEETS_SCOPES)
+    google_credentials_path = os.environ.get('GOOGLE_CREDENTIALS_PATH')
+    google_client = get_gspread_client_with_auth(google_credentials_path, GOOGLE_SHEETS_SCOPES)
 
     # Vonage Initialization
-    vonage_client = vonage.Client(key=config['vonage_api_key'], secret=config['vonage_api_secret'])
+    vonage_api_key = os.environ.get('VONAGE_API_KEY')
+    vonage_api_secret = os.environ.get('VONAGE_API_SECRET')
+    vonage_client = vonage.Client(key=vonage_api_key, secret=vonage_api_secret)
     start_monitoring(google_client, vonage.Sms(vonage_client), config['spreadsheets'])
     
