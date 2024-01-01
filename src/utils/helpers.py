@@ -22,3 +22,4 @@ def flatten_iter(iterable):
             yield from flatten_iter(element)
         else:
             yield element
+            
