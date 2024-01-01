@@ -1,3 +1,4 @@
+config.json
 credentials.json
-settings.json
+__pycache__
 .idea
