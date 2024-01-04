@@ -67,5 +67,5 @@ def start_monitoring(gclient: gspread.Client, vonage_sms_client, spreadsheets):
 
             prev_condition_results[spreadsheet_index] = prev_results
 
-        time.sleep(10)
+        time.sleep(30)
         
