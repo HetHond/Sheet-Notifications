@@ -29,6 +29,7 @@ CONFIG_SCHEMA = {
                                         "required": ["type", "value"]
                                     }
                                 },
+                                "debounce": {"type": "number"},
                                 "sms": {
                                     "type": "object",
                                     "properties": {
