@@ -1,0 +1,4 @@
+jsonschema
+vonage
+gspread
+google_auth_oauthlib
