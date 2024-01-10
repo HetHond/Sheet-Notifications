@@ -12,7 +12,7 @@ import vonage
 # Local imports
 from .constants import GOOGLE_SHEETS_SCOPES, CONFIG_SCHEMA
 from .monitor import start_monitoring
-from .sheets_client import get_gspread_client_with_auth
+from .sheets_client import get_gspread_client_with_auth, get_gspread_with_service_account
 
 
 def get_config(config_path):
@@ -30,6 +30,8 @@ def get_config(config_path):
 def parse_args():
     parser = argparse.ArgumentParser(description="Sheet Notifications Application")
     parser.add_argument('--config', help='Path to the config file', default='./config/config.json')
+    parser.add_argument('--service-account', action='store_true', help='Use a service account instead of OAuth')
+    parser.add_argument('--service-account-path', help='Path to the service account key json', default='./service-account-credentials.json')
     parser.add_argument('--google-credentials-path', help='Path to the Google credentials file', default=os.environ.get('GOOGLE_CREDENTIALS_PATH'))
     parser.add_argument('--vonage-api-key', help='Vonage api key', default=os.environ.get('VONAGE_API_KEY'))
     parser.add_argument('--vonage-api-secret', help='Vonage api secret', default=os.environ.get('VONAGE_API_SECRET'))
@@ -48,11 +50,15 @@ def main():
         sys.exit(1)
     
     # Google Sheets Initialization
-    google_credentials_path = args.google_credentials_path
-    if not google_credentials_path:
-        print("Missing Google credentials path.")
-        sys.exit(1)
-    google_client = get_gspread_client_with_auth(args.google_credentials_path, GOOGLE_SHEETS_SCOPES)
+    if args.service_account:
+        google_client = get_gspread_with_service_account(args.service_account_path, GOOGLE_SHEETS_SCOPES)
+        pass
+    else:
+        google_credentials_path = args.google_credentials_path
+        if not google_credentials_path:
+            print("Missing Google credentials path.")
+            sys.exit(1)
+        google_client = get_gspread_client_with_auth(args.google_credentials_path, GOOGLE_SHEETS_SCOPES)
     
     # Vonage Initialization
     vonage_api_key = args.vonage_api_key
