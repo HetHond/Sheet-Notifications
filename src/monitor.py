@@ -1,6 +1,11 @@
+# Standard library imports
 import time
-import gspread
 from datetime import datetime
+
+# Third-party imports
+import gspread
+
+# Local application/library specific imports
 from .sms_client import send_sms_message
 from .utils.helpers import flatten, euro_float
 

@@ -4,15 +4,18 @@ import json
 import os
 import sys
 
-# Third party imports
+# Third-party imports
+import vonage
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
-import vonage
 
-# Local imports
+# Local application/library specific imports
 from .constants import GOOGLE_SHEETS_SCOPES, CONFIG_SCHEMA
 from .monitor import start_monitoring
-from .sheets_client import get_gspread_client_with_auth, get_gspread_with_service_account
+from .sheets_client import (
+    get_gspread_client_with_auth,
+    get_gspread_with_service_account
+)
 
 
 def get_config(config_path):

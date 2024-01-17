@@ -1,5 +1,6 @@
-import gspread
+# Third-party imports
 from google_auth_oauthlib.flow import InstalledAppFlow
+import gspread
 
 
 def get_gspread_with_service_account(service_account_path, scopes):
