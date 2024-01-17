@@ -1,4 +1,5 @@
-config.json
-credentials.json
 __pycache__
 .idea
+.gitignore
+.git
+venv
