@@ -51,8 +51,9 @@ CONFIG_SCHEMA = {
                 "required": ["spreadsheet_id", "worksheet_id", "monitors"],
                 "additionalProperties": False
             }
-        }
+        },
+        "interval": {"type": "number"}
     },
-    "required": ["spreadsheets"],
+    "required": ["spreadsheets", "interval"],
     "additionalProperties": False
 }

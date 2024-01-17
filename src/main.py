@@ -29,7 +29,7 @@ def get_config(config_path):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Sheet Notifications Application")
-    parser.add_argument('--config', help='Path to the config file', default='./config/config.json')
+    parser.add_argument('--config', help='Path to the config file', default='./config.json')
     parser.add_argument('--service-account', action='store_true', help='Use a service account instead of OAuth')
     parser.add_argument('--service-account-path', help='Path to the service account key json', default='./service-account-credentials.json')
     parser.add_argument('--google-credentials-path', help='Path to the Google credentials file', default=os.environ.get('GOOGLE_CREDENTIALS_PATH'))
@@ -70,5 +70,5 @@ def main():
     if not vonage_api_secret:
         print('Missing Vonage api secret')
     vonage_client = vonage.Client(key=args.vonage_api_key, secret=args.vonage_api_secret)
-    start_monitoring(google_client, vonage.Sms(vonage_client), config['spreadsheets'])
+    start_monitoring(google_client, vonage.Sms(vonage_client), config['spreadsheets'], config['interval'])
     

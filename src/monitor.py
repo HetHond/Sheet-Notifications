@@ -5,8 +5,8 @@ from .sms_client import send_sms_message
 from .utils.helpers import flatten, euro_float
 
 
-def start_monitoring(gclient: gspread.Client, vonage_sms_client, spreadsheets):
-    # Array generation (the way I do stuff this is needed)
+def start_monitoring(gclient: gspread.Client, vonage_sms_client, spreadsheets, interval):
+    # Array generation (the way I do stuff, this is needed)
     prev_condition_results = [[] for _ in range(0, len(spreadsheets))]
     debounce_record = []
     for spreadsheet_index in range(0, len(spreadsheets)):
@@ -93,5 +93,6 @@ def start_monitoring(gclient: gspread.Client, vonage_sms_client, spreadsheets):
 
             prev_condition_results[spreadsheet_index] = prev_results
 
-        time.sleep(30)
+        print('Waiting for ' + interval)
+        time.sleep(interval)
         
