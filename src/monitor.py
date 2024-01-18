@@ -98,6 +98,6 @@ def start_monitoring(gclient: gspread.Client, vonage_sms_client, spreadsheets, i
 
             prev_condition_results[spreadsheet_index] = prev_results
 
-        print('Waiting for ' + interval)
+        print('Waiting for ' + str(interval))
         time.sleep(interval)
         
