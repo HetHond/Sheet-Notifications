@@ -34,8 +34,12 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Sheet Notifications Application")
     parser.add_argument('--config', help='Path to the config file', default='./config.json')
     parser.add_argument('--service-account', action='store_true', help='Use a service account instead of OAuth')
-    parser.add_argument('--service-account-path', help='Path to the service account key json', default='./service-account-credentials.json')
-    parser.add_argument('--google-credentials-path', help='Path to the Google credentials file', default=os.environ.get('GOOGLE_CREDENTIALS_PATH'))
+    parser.add_argument('--service-account-path',
+                        help='Path to the service account key json',
+                        default='./service-account-credentials.json')
+    parser.add_argument('--google-credentials-path',
+                        help='Path to the Google credentials file',
+                        default=os.environ.get('GOOGLE_CREDENTIALS_PATH'))
     parser.add_argument('--vonage-api-key', help='Vonage api key', default=os.environ.get('VONAGE_API_KEY'))
     parser.add_argument('--vonage-api-secret', help='Vonage api secret', default=os.environ.get('VONAGE_API_SECRET'))
     return parser.parse_args()
@@ -54,7 +58,11 @@ def main():
     
     # Google Sheets Initialization
     if args.service_account:
-        google_client = get_gspread_with_service_account(args.service_account_path, GOOGLE_SHEETS_SCOPES)
+        try:
+            google_client = get_gspread_with_service_account(args.service_account_path, GOOGLE_SHEETS_SCOPES)
+        except FileNotFoundError:
+            print("Service account credentials file not found.")
+            sys.exit(1)
         pass
     else:
         google_credentials_path = args.google_credentials_path
